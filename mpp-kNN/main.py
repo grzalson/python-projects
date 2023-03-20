@@ -8,37 +8,38 @@ def create_set_table(file):
     with open(file, 'r') as f:
         lines = f.read().split('\n')
         for line in lines:
-            data = line.split(',')
-            for d in data:
-                if data.index(d) != (len(data) - 1):
-                    d = float(d)
-            temp_set_table.append(data)
-    f.close()
+            f_vector = line.split(',')
+            for value in f_vector:
+                if f_vector.index(value) != (len(f_vector) - 1):
+                    value = float(value)
+            temp_set_table.append(f_vector)
+        f.close()
     return temp_set_table
 
 
-def count_distance(list1: list, list2: list):
+def count_distance(vector1: list, vector2: list):
     distance = 0
-    for a in list1:
-        if list1.index(a) != (len(list1) - 1):
-            distance += math.pow(float(a) - float(list2[list1.index(a)]), 2)
+    index = 0
+    while index < len(vector1) - 1:
+        distance += (float(vector1[index]) - float(vector2[index])) ** 2
+        index += 1
     return distance
 
 
-def find_most_frequent(fdistances_list: list):
+def find_most_frequent(f_distances_list: list):
     distances = []
-    for set in fdistances_list:
+    for set in f_distances_list:
         distances.append(set[1])
     distances.sort()
 
     min_distances = list(distances[0:k])
     closest = []
-    for e in fdistances_list:
+    for e in f_distances_list:
         if e[1] in min_distances:
             closest.append(e[0][-1])
 
-    fmost_frequent = mode(closest)
-    return fmost_frequent
+    f_most_frequent = mode(closest)
+    return f_most_frequent
 
 
 print("Load a file with training data: ")
